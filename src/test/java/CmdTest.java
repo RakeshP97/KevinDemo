@@ -1,22 +1,19 @@
 import org.junit.Test;
+import org.junit.jupiter.api.Order;
+
 
 /**
- * Add Classpath env variable
- * %JAVA_HOME%\lib;%JRE_HOME%\lib;C:\Data\DEMO\KevinMaven\libraires;
- *
- *
- * Compile by using
- * C:\Data\DEMO\KevinMaven>javac -cp "C:\Data\DEMO\KevinMaven\libraires\*" src\test\java\CmdTest.java
- *
- * Running a test class
- *
- *C:\Data\DEMO\KevinMaven>java -jar -Durl=https://amazon.com -DuserName=Kevin -Dpassword=dias123 C:\Data\DEMO\KevinMaven\libraires\junit-platform-console-standalone-1.6.2.jar --class-path src\test\java --scan-class-path
+ *javac -cp "C:\Data\DEMO\KevinMaven\libraires\*" C*.java
+ * 
+ * java -jar -Durl=https://amazon.com -DuserName=Kevin -Dpassword=dias123 C:\Data\DEMO\KevinMaven\libraires\junit-platform-console-standalone-1.6.2.jar -cp . --scan-class-path --reports-dir=reports
  */
 public class CmdTest {
 
+    private static String agentNo;
 
     @Test
-    public void test_cmd(){
+    @Order(1)
+    public void test_setup(){
         String url = System.getProperty("url");
         String userName = System.getProperty("userName");
         String password = System.getProperty("password");
@@ -26,15 +23,26 @@ public class CmdTest {
         System.out.println("Password used::"+ password);
     }
 
-
     @Test
-    public void test_cmd2(){
-        String url = System.getProperty("url");
-        String userName = System.getProperty("userName");
-        String password = System.getProperty("password");
+    @Order(2)
+    public void test_agentCreate(){
+        String persist = System.getProperty("persist");
+        System.out.println("Persisted agent::"+ persist);
 
-        System.out.println("Requested URL::"+ url);
-        System.out.println("User trying to loggin ::"+ userName);
-        System.out.println("Password used::"+ password);
+        String file = System.getProperty("file");
+        System.out.println("Persisted agent::"+ file);
+
+        String network = System.getProperty("network");
+        System.out.println("Persisted agent::"+ network);
+
+        agentNo="222";
+        //System.setProperty("agentNo", agentNo);
+        System.out.println("Persisted agentNo::" +agentNo);
     }
+
+    public static String getAgentNo() {
+
+        return agentNo;
+    }
+
 }
